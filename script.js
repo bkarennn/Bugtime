@@ -672,7 +672,32 @@ $('#projeto-foco').addEventListener('change',evento => { dados.configuracoes.pro
 $('#custom-minutos').addEventListener('change',evento => { if (!evento.target.checkValidity() || !evento.target.value) { evento.target.reportValidity(); evento.target.value = dados.configuracoes.minutos; return; } dados.configuracoes.minutos = Number(evento.target.value); salvarDados(); renderizarFoco(); });
 setInterval(() => { if (dados.pomodoro?.status === 'rodando' && segundosRestantes() <= 0) finalizarPomodoro(); else atualizarRelogio(); },250);
 // Mantém abas abertas sincronizadas para evitar crédito duplicado de uma sessão.
-window.addEventListener('storage',evento => { if (evento.key === CHAVE) { dados = carregarDados(); atualizarGamificacao(false); renderizarTudo(); } });
+window.addEventListener('storage',evento => {
+  if (evento.key !== CHAVE) return;
+  if (evento.newValue === null) {
+    // Outra aba apagou os dados: descarta também timers e formulários antigos.
+    dados = dadosIniciais();
+    window.location.reload();
+    return;
+  }
+  dados = carregarDados(); atualizarGamificacao(false); renderizarTudo();
+});
+function apagarTodosDados() {
+  const confirmou = confirm('Apagar todos os dados do Bugtime neste navegador?\n\nProjetos, pastas, tarefas, listas, tempo de foco, conquistas e configurações serão removidos. O Pomodoro atual será encerrado.\n\nEsta ação não pode ser desfeita no app. Clique em Cancelar se quiser baixar uma cópia antes.');
+  if (!confirmou) return;
+  try {
+    // Remove somente a chave do Bugtime; nunca usa localStorage.clear(),
+    // pois outros aplicativos podem compartilhar o mesmo armazenamento.
+    localStorage.removeItem(CHAVE);
+  } catch (erro) {
+    avisar('Não foi possível apagar os dados. Verifique as permissões de armazenamento do navegador e tente novamente.');
+    return;
+  }
+  dados = dadosIniciais();
+  // Recarregar encerra intervalos, avisos pendentes e estados temporários da sessão.
+  window.location.reload();
+}
+$('#apagar-dados').addEventListener('click', apagarTodosDados);
 $('#exportar').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(dados,null,2)],{type:'application/json'});
   const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = 'bugtime-backup.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url),1000);

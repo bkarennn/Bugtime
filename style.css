@@ -1203,3 +1203,6 @@ h1 {
     .garden-landscape, .garden-landscape *,
     .garden-landscape *::before, .garden-landscape *::after { transition: none !important; }
 }
+/* A exclusão é separada dos controles cotidianos e exige confirmação. */
+.data-reset-card { border: 1px solid #e3b9b5; }
+.danger-button { background: #f7dfdc; color: #8d3535; border: 1px solid #d9a4a0; }
