@@ -2,6 +2,10 @@
 
 // Todos os tempos são armazenados em segundos. A interface formata em horas/minutos.
 const CHAVE = 'bugtime.v1';
+// TESTE VISUAL DO JARDIM: troque null por 'morning', 'afternoon', 'sunset' ou
+// 'night' e recarregue a página. Volte para null para acompanhar o relógio local.
+// Esta opção é só de desenvolvimento e não é gravada no localStorage.
+const periodoTeste = null;
 const $ = (seletor) => document.querySelector(seletor);
 const uid = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 const escapar = (texto) => String(texto ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -361,7 +365,23 @@ function abrirPlantaCultivada(id) {
   $('#planta-modal').showModal();
   animarPlanta($('#planta-modal-conteudo .plant-visual'));
 }
+// O relógio do próprio dispositivo define o céu, sem APIs nem localização.
+function obterPeriodoJardim(hora = new Date().getHours()) {
+  if (hora >= 5 && hora < 12) return 'morning';
+  if (hora >= 12 && hora < 17) return 'afternoon';
+  if (hora >= 17 && hora < 19) return 'sunset';
+  return 'night';
+}
+function atualizarHorarioJardim() {
+  const ambiente = $('.garden-landscape');
+  if (!ambiente) return;
+  const periodos = ['morning', 'afternoon', 'sunset', 'night'];
+  const periodo = periodos.includes(periodoTeste) ? periodoTeste : obterPeriodoJardim();
+  periodos.forEach(nome => ambiente.classList.toggle(`garden-${nome}`, nome === periodo));
+  return periodo;
+}
 function renderizarJardim() {
+  atualizarHorarioJardim();
   renderizarCultivo();
   mudarVistaJardim(jardimVista);
   $('#colecao-contagem').textContent = `${dados.plantasDesbloqueadas.length} / ${plantas.length} plantas descobertas`;
@@ -707,6 +727,12 @@ $('#garden-emblem').innerHTML = desenhoPlantaSVG(plantas.find(p => p.id === 'hor
 // Migra e salva uma vez na abertura; objetivos já atingidos também são reconhecidos.
 salvarDados();
 renderizarTudo();
+// Atualiza mesmo se a página atravessar uma mudança de horário; ao voltar de uma
+// aba suspensa, verifica imediatamente em vez de esperar pelo próximo minuto.
+setInterval(atualizarHorarioJardim, 60 * 1000);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) atualizarHorarioJardim();
+});
 if (dados.pomodoro?.status === 'rodando' && segundosRestantes() <= 0) finalizarPomodoro();
 if (avisoCarga) avisar(avisoCarga);
 

@@ -1092,3 +1092,114 @@ h1 {
 .folder-group .folder { margin: 0; }
 .folder-group summary { padding-right: 102px; min-height: 44px; }
 .folder-rename { position: absolute; top: 16px; right: 16px; z-index: 1; }
+/* Horário local: as cores abaixo afetam somente o ambiente de cultivo. */
+.garden-landscape {
+    --garden-sky: #e7f1f5;
+    --garden-ground: #dce9cf;
+    --garden-sky-ink: #36454a;
+    --garden-sky-muted: #566971;
+    --garden-bed: #f6f3e5;
+    --garden-ground-ink: #322e2c;
+    background-color: var(--garden-ground);
+    transition: background-color 1s ease;
+}
+.garden-landscape .garden-sky {
+    background-color: var(--garden-sky);
+    color: var(--garden-sky-ink);
+    transition: background-color 1s ease, color 1s ease;
+}
+.garden-landscape .garden-sky .eyebrow {
+    color: var(--garden-sky-muted);
+    transition: color 1s ease;
+}
+.garden-landscape .garden-sky::after {
+    background-color: var(--garden-ground);
+    transition: background-color 1s ease;
+    pointer-events: none;
+}
+/* Um gradiente fixo com transição de opacidade evita a troca brusca de imagens
+   de fundo. Ele aparece só no pôr do sol, atrás dos textos e das decorações. */
+.garden-landscape .garden-sky::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, #d4c5e9 0%, #efc3cb 52%, #f4d1a7 100%);
+    opacity: 0;
+    transition: opacity 1s ease;
+    pointer-events: none;
+}
+.garden-landscape .garden-bed {
+    background-color: var(--garden-bed);
+    transition: background-color 1s ease;
+}
+.garden-landscape .garden-empty {
+    color: var(--garden-ground-ink);
+    transition: color 1s ease;
+}
+.garden-sun, .garden-cloud, .garden-moon, .garden-stars {
+    pointer-events: none;
+    user-select: none;
+}
+.garden-landscape .garden-sun {
+    top: 34px;
+    left: 24px;
+    background-color: #efda9b;
+    opacity: 1;
+    transition: top 1s ease, left 1s ease, background-color 1s ease, opacity 1s ease;
+}
+.garden-landscape .garden-cloud { transition: opacity 1s ease; }
+.garden-moon {
+    position: absolute;
+    top: 21px;
+    right: 27px;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    /* Recorte em forma de crescente, sem brilho ou imagem externa. */
+    background: #f5e8bd;
+    clip-path: path('M 19 0 A 14.5 14.5 0 1 0 29 22 A 14 14 0 0 1 19 0 Z');
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.garden-stars {
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #eee7cf;
+    box-shadow: 29px 20px #eee7cf, 68px -4px #eee7cf, 108px 16px #eee7cf,
+                148px -2px #eee7cf, 180px 25px #eee7cf;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.garden-morning { --garden-sky: #e7f1f5; --garden-ground: #dce9cf; }
+.garden-afternoon { --garden-sky: #cfe7f1; --garden-ground: #d5e6c6; }
+.garden-afternoon .garden-sun { top: 16px; left: 48%; background-color: #efce78; }
+.garden-sunset {
+    --garden-sky: #e8c8d3;
+    --garden-ground: #d5d9b9;
+    --garden-sky-ink: #533e47;
+    --garden-sky-muted: #68525c;
+    --garden-bed: #f5edde;
+}
+.garden-sunset .garden-sky::before { opacity: 1; }
+.garden-sunset .garden-sun { top: calc(100% - 34px); left: calc(100% - 48px); background-color: #eeb57d; }
+.garden-sunset .garden-cloud { opacity: .65; }
+.garden-night {
+    --garden-sky: #343550;
+    --garden-ground: #647463;
+    --garden-sky-ink: #f7f3ed;
+    --garden-sky-muted: #dedbe9;
+    --garden-ground-ink: #fffaf0;
+    /* Canteiros claros preservam a leitura das plantas, dos nomes e da joaninha. */
+    --garden-bed: #eeede2;
+}
+.garden-night .garden-sun, .garden-night .garden-cloud { opacity: 0; }
+.garden-night .garden-moon, .garden-night .garden-stars { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+    .garden-landscape, .garden-landscape *,
+    .garden-landscape *::before, .garden-landscape *::after { transition: none !important; }
+}
