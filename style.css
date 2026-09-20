@@ -1,0 +1,1094 @@
+﻿/* Base mobile-first: a página rola;
+     o mascote nunca aumenta sua largura. */
+:root {
+    --bg:#faf7ef;
+    --ink:#322e2c;
+    --muted:#746f69;
+    --pink:#f5ccd4;
+    --yellow:#f8e5a4;
+    --blue:#d6e8f7;
+    --green:#dcebcf;
+    --radius:26px
+}
+
+* {
+    box-sizing:border-box
+}
+body {
+    margin:0;
+    min-height:100vh;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:ui-rounded,"Trebuchet MS",Arial,sans-serif;
+    overflow-x:hidden
+}
+button,input,select,textarea {
+    font:inherit
+}
+button {
+    cursor:pointer;
+    border:0;
+    min-height:44px;
+    border-radius:16px;
+    padding:12px 16px;
+    background:transparent;
+    color:inherit;
+    font-weight:700
+}
+button:hover {
+    filter:brightness(.96)
+}
+button:disabled {
+    opacity:.45;
+    cursor:default
+}
+button:focus-visible,a:focus-visible {
+    outline:3px solid #9270ac;
+    outline-offset:3px
+}
+input,select,textarea {
+    width:100%;
+    min-width:0;
+    border:1px solid #dedbd4;
+    border-radius:13px;
+    padding:13px;
+    background:#fff;
+    color:var(--ink)
+}
+textarea {
+    resize:vertical
+}
+label {
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    margin:16px 0 8px
+}
+label input,label select,label textarea {
+    margin-top:8px
+}
+input[type=checkbox] {
+    width:22px;
+    height:22px;
+    min-width:22px;
+    accent-color:#745b77
+}
+input[type=color] {
+    height:46px;
+    padding:5px
+}
+h1 {
+    font-size:34px;
+    line-height:1.16;
+    letter-spacing:-1.3px;
+    margin:12px 0
+}
+h2 {
+    font-size:20px;
+    letter-spacing:-.5px;
+    margin:0 0 12px
+}
+h3 {
+    font-size:18px;
+    margin:0
+}
+p {
+    line-height:1.6
+}
+ [hidden] {
+    display:none!important
+}
+.app {
+    max-width:480px;
+    margin:auto;
+    padding:28px 22px 125px
+}
+.brand {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:36px;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:1px
+}
+.tag {
+    font-size:10px;
+    letter-spacing:0;
+    color:var(--muted);
+    font-weight:400
+}
+.eyebrow {
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.8px;
+    color:var(--muted);
+    margin:20px 0 12px
+}
+.subtitle {
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:26px
+}
+.card {
+    background:#fff;
+    border-radius:var(--radius);
+    padding:24px;
+    margin:20px 0;
+    box-shadow:0 4px 15px #493f2c03
+}
+.welcome {
+    background:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    overflow:hidden
+}
+.welcome .eyebrow {
+    font-size:9px
+}
+.welcome h2 {
+    font-size:24px;
+    line-height:1.3;
+    margin:14px 0 20px
+}
+.flower {
+    color:#fff9e8;
+    font-size:112px;
+    line-height:1;
+
+    transform:rotate(12deg)
+}
+.primary {
+    background:var(--ink);
+    color:#fff
+}
+.primary span {
+    margin-left:14px
+}
+.secondary {
+    background:#eee9df
+}
+.text-button {
+    font-size:12px;
+    padding:8px
+}
+.wide {
+    width:100%;
+    margin-top:16px
+}
+.dashed {
+    border:1.5px dashed #c8bdb0;
+    background:transparent
+}
+.actions {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:22px 0
+}
+.actions>* {
+    flex:1
+}
+.stats {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin:24px 0 30px
+}
+.stat {
+    padding:16px 8px;
+    background:white;
+    border-radius:20px;
+    text-align:center
+}
+.stat strong {
+    display:block;
+    font-size:21px;
+    margin-bottom:7px
+}
+.stat span {
+    font-size:10px;
+    color:var(--muted)
+}
+.section-heading {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:25px 0 14px
+}
+.section-heading h2 {
+    margin:0
+}
+.project-grid {
+    display:grid;
+    gap:13px
+}
+.project-card {
+    display:block;
+    width:100%;
+    text-align:left;
+    background:var(--project-color,var(--pink));
+    padding:20px;
+    border-radius:23px;
+    position:relative
+}
+.project-top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:18px
+}
+.project-icon {
+    display:grid;
+    place-items:center;
+    width:36px;
+    height:36px;
+    background:#ffffff80;
+    border-radius:12px;
+    font-size:19px
+}
+.project-card h3 {
+    overflow-wrap:anywhere
+}
+.project-card p {
+    font-size:12px;
+    font-weight:400;
+    margin:8px 0 16px
+}
+.progress {
+    height:7px;
+    border-radius:20px;
+    background:#ffffff95;
+    overflow:hidden
+}
+.progress>span {
+    display:block;
+    height:100%;
+    border-radius:20px;
+    background:#55475088
+}
+.progress-caption {
+    display:flex;
+    justify-content:space-between;
+    margin-top:9px;
+    font-size:10px;
+    font-weight:400
+}
+.empty {
+    color:var(--muted);
+    font-size:14px;
+    text-align:center;
+    padding:25px 12px;
+    line-height:1.6
+}
+.folder {
+    border-radius:23px;
+    background:white;
+    padding:16px;
+    margin:20px 0
+}
+.folder summary {
+    cursor:pointer;
+    font-weight:700;
+    padding:10px 2px;
+    overflow-wrap:anywhere
+}
+.folder .project-grid {
+    margin-top:12px
+}
+.folder-dot {
+    display:inline-block;
+    width:13px;
+    height:13px;
+    border-radius:4px;
+    margin-right:9px;
+    background:var(--project-color)
+}
+.folder-count {
+    font-size:11px;
+    color:var(--muted);
+    margin-left:8px
+}
+.detail-hero {
+    background:var(--project-color);
+    overflow-wrap:anywhere
+}
+.detail-hero h1 {
+    font-size:30px
+}
+.detail-time {
+    font-size:35px;
+    font-weight:800;
+    margin:20px 0 8px
+}
+.meta {
+    font-size:12px;
+    color:var(--muted)
+}
+.task-row {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    border-bottom:1px solid #f1eee7;
+    padding:6px 0
+}
+.task-row label {
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    font-weight:400;
+    margin:0;
+    overflow-wrap:anywhere;
+    min-width:0
+}
+.task-row label span {
+    min-width:0
+}
+.task-row input {
+    margin:0
+}
+.task-row .done {
+    text-decoration:line-through;
+    color:var(--muted)
+}
+.delete {
+    font-size:20px;
+    color:#866e6e;
+    flex-shrink:0
+}
+.inline-form {
+    display:flex;
+    gap:8px;
+    margin-top:18px
+}
+.inline-form input {
+    flex:1;
+    min-width:0
+}
+.inline-form button {
+    background:var(--green);
+    font-size:22px
+}
+.list-title {
+    overflow-wrap:anywhere;
+    flex:1
+}
+.list-card .section-heading {
+    margin:0 0 12px
+}
+.focus-card {
+    text-align:center;
+    padding:23px 18px
+}
+.focus-card label {
+    text-align:left
+}
+.focus-card select {
+    margin:5px 0 20px
+}
+.presets {
+    display:flex;
+    gap:5px;
+    background:#f6f3ed;
+    border-radius:16px;
+    padding:5px
+}
+.presets button {
+    flex:1;
+    padding:10px 5px;
+    font-size:12px
+}
+.presets .selected {
+    background:var(--pink)
+}
+.timer {
+    font-size:76px;
+    font-weight:800;
+    letter-spacing:-4px;
+    margin:32px 0 0;
+    font-variant-numeric:tabular-nums
+}
+#timer-status {
+    font-size:12px;
+    color:var(--muted);
+    min-height:38px
+}
+.timer-actions {
+    gap:5px;
+    margin-bottom:0
+}
+.timer-actions button {
+    font-size:12px;
+    padding:12px 10px
+}
+.footnote {
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+    margin:22px 10px
+}
+/* Cena de foco: mascote de perfil, com mesa e computador em cores chapadas. */
+.work-scene {
+    width: 224px;
+    max-width: 100%;
+    height: 138px;
+    position: relative;
+    margin: 22px auto;
+    pointer-events: none;
+}
+.work-scene::before {
+    content: "";
+    position: absolute;
+    inset: 8px 24px 12px;
+    border-radius: 56% 44% 48% 52%;
+    background: #f1f2e6;
+}
+/* Perfil lateral: casco horizontal, cabeça à direita e um único olho.
+   As peças são independentes do mascote que anda pelo app. */
+.pomodoro-bug {
+    position: absolute;
+    left: 43px;
+    top: 48px;
+    width: 67px;
+    height: 44px;
+    z-index: 2;
+    pointer-events: none;
+    animation: profile-work 1.6s ease-in-out infinite;
+    animation-play-state: paused;
+}
+.pomodoro-bug-body {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 48px;
+    height: 30px;
+    border-radius: 29px 25px 9px 12px;
+    background: #ef4937;
+    z-index: 2;
+}
+.pomodoro-bug-spot {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: #30221f;
+    border-radius: 50%;
+}
+.spot-back { left: 8px; top: 16px; }
+.spot-top { left: 20px; top: 5px; }
+.spot-front { left: 33px; top: 17px; }
+.pomodoro-bug-head {
+    position: absolute;
+    left: 39px;
+    top: 12px;
+    width: 25px;
+    height: 25px;
+    border-radius: 45% 60% 55% 40%;
+    background: #30221f;
+    z-index: 3;
+}
+.pomodoro-bug-eye {
+    position: absolute;
+    left: 13px;
+    top: 5px;
+    width: 9px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fffaf1;
+}
+/* Pupila posicionada explicitamente: não depende de margens de elementos inline.
+   O olho permanece aberto e legível em todos os estados do timer. */
+.pomodoro-bug-pupil {
+    position: absolute;
+    right: 1px;
+    top: 3px;
+    width: 5px;
+    height: 6px;
+    border-radius: 50%;
+    background: #30221f;
+}
+.pomodoro-bug-antenna {
+    position: absolute;
+    top: -9px;
+    width: 3px;
+    height: 12px;
+    border-radius: 3px;
+    background: #30221f;
+    transform-origin: bottom center;
+    animation: profile-antenna 1.8s ease-in-out infinite;
+    animation-play-state: paused;
+}
+.pomodoro-bug-antenna::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #30221f;
+}
+.antenna-back { left: 7px; rotate: -15deg; }
+.antenna-front { left: 17px; rotate: 24deg; animation-delay: -.4s; }
+.pomodoro-bug-leg {
+    position: absolute;
+    top: 32px;
+    width: 12px;
+    height: 12px;
+    border-left: 3px solid #30221f;
+    border-bottom: 3px solid #30221f;
+    border-radius: 0 0 0 5px;
+    z-index: 1;
+}
+.leg-back { left: 12px; }
+.leg-middle { left: 32px; }
+.pomodoro-bug-arm {
+    position: absolute;
+    left: 53px;
+    top: 31px;
+    width: 17px;
+    height: 9px;
+    border-left: 3px solid #30221f;
+    border-bottom: 3px solid #30221f;
+    border-radius: 0 0 0 5px;
+    z-index: 4;
+    transform-origin: left top;
+    animation: profile-typing .7s ease-in-out infinite;
+    animation-play-state: paused;
+}
+.mesa-pomodoro {
+    position: absolute;
+    left: 35px;
+    top: 92px;
+    width: 154px;
+    height: 8px;
+    border-radius: 4px;
+    background: #bb977f;
+    z-index: 3;
+}
+.mesa-pomodoro::before, .mesa-pomodoro::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    width: 7px;
+    height: 25px;
+    border-radius: 0 0 3px 3px;
+    background: #bb977f;
+}
+.mesa-pomodoro::before { left: 13px; }
+.mesa-pomodoro::after { right: 13px; }
+.computador-pomodoro {
+    position: absolute;
+    left: 112px;
+    top: 45px;
+    width: 58px;
+    height: 47px;
+    z-index: 2;
+}
+.computer-screen {
+    display: block;
+    height: 39px;
+    padding: 8px 6px;
+    background: #d6e7e5;
+    border: 4px solid #596761;
+    border-radius: 6px;
+}
+.computer-line {
+    display: block;
+    width: 23px;
+    height: 3px;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    background: #8baa9e;
+}
+.computer-line:last-child {
+    width: 14px;
+    animation: screen-typing 1.8s steps(3, end) infinite;
+    animation-play-state: paused;
+}
+.computer-base {
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    width: 69px;
+    height: 5px;
+    border-radius: 2px 2px 5px 5px;
+    background: #596761;
+}
+.working .pomodoro-bug,
+.working .pomodoro-bug-antenna,
+.working .pomodoro-bug-arm,
+.working .computer-line:last-child { animation-play-state: running; }
+/* Ao pausar, a pose volta ao repouso, sem recortar ou esconder a pupila. */
+.resting .pomodoro-bug,
+.resting .pomodoro-bug-antenna,
+.resting .pomodoro-bug-arm { animation: none; }
+.resting .computer-screen { background: #e4e9e1; }
+.resting .computer-line { opacity: .45; }
+.spark {
+    display: none;
+    position: absolute;
+    left: 44px;
+    top: 13px;
+    color: #c19d56;
+    font-size: 23px;
+}
+.celebrating .spark { display: block; }
+.celebrating .pomodoro-bug { animation: profile-celebrate .4s ease-in-out 4; }
+@keyframes profile-work { 50% { translate: 0 -.6px; } }
+@keyframes profile-antenna { 50% { transform: rotate(6deg); } }
+@keyframes profile-typing { 50% { transform: rotate(-6deg); } }
+@keyframes profile-celebrate { 50% { translate: 0 -4px; } }
+@keyframes screen-typing { 50% { width: 24px; } }
+.profile {
+    text-align:center
+}
+.avatar {
+    display:inline-grid;
+    place-items:center;
+    background:var(--pink);
+    width:75px;
+    height:75px;
+    border-radius:27px;
+    font-size:38px;
+    margin-bottom:22px
+}
+.profile p,#perfil .card p {
+    font-size:14px;
+    color:var(--muted)
+}
+.bottom-nav {
+    position:fixed;
+    bottom:16px;
+    bottom:max(16px,env(safe-area-inset-bottom));
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 28px);
+    max-width:452px;
+    background:#322e2c;
+    border-radius:25px;
+    display:flex;
+    padding:8px;
+    z-index:20;
+    box-shadow:0 8px 24px #322e2c18
+}
+.bottom-nav button {
+    color:#d5cfca;
+    flex:1;
+    min-width:0;
+    padding:9px 2px;
+    font-size:10px;
+    border-radius:18px;
+    font-weight:400
+}
+.bottom-nav button span {
+    display:block;
+    font-size:23px;
+    line-height:26px;
+    margin-bottom:3px
+}
+.bottom-nav button[aria-current] {
+    background:var(--yellow);
+    color:var(--ink);
+    font-weight:700
+}
+dialog {
+    border:0;
+    border-radius:28px;
+    padding:24px;
+    width:calc(100% - 30px);
+    max-width:430px;
+    max-height:85dvh;
+    overflow-y:auto;
+    color:var(--ink);
+    background:var(--bg)
+}
+dialog::backdrop {
+    background:#322e2c66;
+    backdrop-filter:blur(3px)
+}
+dialog .section-heading {
+    margin-top:0
+}
+.toast {
+    position:fixed;
+    bottom:112px;
+    left:50%;
+    transform:translateX(-50%);
+    width:max-content;
+    max-width:calc(100% - 35px);
+    padding:16px 22px;
+    background:var(--ink);
+    color:white;
+    border-radius:18px;
+    z-index:50;
+    font-size:14px;
+    box-shadow:0 5px 22px #0002
+}
+
+/* Mascote original: partes preservadas, tamanho discreto e sem interceptar cliques. */
+.joaninha {
+    position:fixed;
+    left:24px;
+    top:180px;
+    width:38px;
+    height:48px;
+    z-index:15;
+    pointer-events:none;
+    transform-origin:center;
+    scale:.65
+}
+.cabeca {
+    position:absolute;
+    top:0;
+    left:8px;
+    width:22px;
+    height:18px;
+    background:#30221f;
+    border-radius:50%;
+    z-index:3
+}
+.olho {
+    position:absolute;
+    top:5px;
+    width:6px;
+    height:8px;
+    background:white;
+    border-radius:50%;
+    overflow:hidden
+}
+.olho-esquerdo {
+    left:4px
+}
+.olho-direito {
+    right:4px
+}
+.pupila {
+    width:3px;
+    height:4px;
+    background:#30221f;
+    border-radius:50%;
+    margin:1px auto
+}
+.piscando .olho {
+    height:1px;
+    top:9px
+}
+.antena {
+    position:absolute;
+    width:2px;
+    height:9px;
+    background:#30221f;
+    border-radius:10px;
+    top:-6px
+}
+.antena-esquerda {
+    left:4px;
+    transform:rotate(-25deg)
+}
+.antena-direita {
+    right:4px;
+    transform:rotate(25deg)
+}
+.corpo {
+    position:absolute;
+    top:13px;
+    width:38px;
+    height:35px;
+    background:#ef4937;
+    border-radius:50%;
+    z-index:2
+}
+.linha-central {
+    position:absolute;
+    left:18px;
+    width:2px;
+    height:100%;
+    background:#7f2925
+}
+.pinta {
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:#30221f;
+    border-radius:50%
+}
+.pinta1 {
+    left:8px;
+    top:8px
+}
+.pinta2 {
+    right:8px;
+    top:8px
+}
+.pinta3 {
+    left:10px;
+    bottom:7px
+}
+.pinta4 {
+    right:10px;
+    bottom:7px
+}
+@media(max-width:360px) {
+    .app {
+    padding-left:16px;
+    padding-right:16px
+}
+h1 {
+    font-size:30px
+}
+.flower {
+    font-size:85px
+}
+.tag {
+    display:none
+}
+.timer {
+    font-size:64px
+}
+
+}
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+    animation:none!important;
+    scroll-behavior:auto!important
+}
+
+}
+
+
+/* JARDIM: a raridade muda apenas detalhes; todas as conquistas têm regras visíveis. */
+.garden-summary {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--green);
+}
+.garden-summary > span { font-size: 42px; }
+.garden-summary h2 { font-size: 18px; }
+.garden-summary p { font-size: 12px; margin: 0; }
+.garden-group { margin: 32px 0; }
+.garden-group h2 { margin-bottom: 16px; }
+.garden-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+.plant-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 10px;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    background: white;
+    min-width: 0;
+}
+.plant-card strong { font-size: 14px; overflow-wrap: anywhere; }
+.plant-card small { font-size: 10px; font-weight: 400; }
+.rarity-comum { --rarity-color: #e5edda; }
+.rarity-incomum { --rarity-color: #d6e8f7; border: 1px solid #c8ddea; }
+.rarity-rara { --rarity-color: #f5ccd4; border: 1px solid #e6b7c1; }
+.rarity-especial { --rarity-color: #eee0f6; border: 1px solid #cdb9db; }
+.plant-card.locked { background: #f0eee8; }
+.plant-card.locked .plant-visual { opacity: .4; filter: grayscale(.7); }
+.rarity-badge {
+    display: inline-block;
+    background: var(--rarity-color, var(--green));
+    padding: 5px 9px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 700;
+}
+.plant-visual {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 70px;
+    height: 76px;
+    border-radius: 50% 50% 42% 42%;
+    background: #ffffff85;
+    vertical-align: middle;
+}
+.planta-icone { display: block; width: 100%; height: 100%; overflow: visible; }
+.plant-image { max-width: 100%; max-height: 100%; object-fit: contain; }
+.plant-visitor {
+    position: absolute;
+    right: -3px;
+    bottom: 5px;
+    width: 25px;
+    height: 30px;
+    pointer-events: none;
+    animation: visit-plant 6s steps(1, end) forwards;
+}
+@keyframes visit-plant { to { visibility: hidden; } }
+.project-top .plant-visual { width: 52px; height: 52px; }
+
+.project-top > span:last-child { font-size: 11px; }
+.project-card .project-plant-name { margin-bottom: 8px; font-weight: 700; }
+.cultivated-heading { display: flex; gap: 16px; align-items: center; }
+.cultivated-heading > div { min-width: 0; }
+.cultivated-heading h2 { margin: 10px 0 6px; overflow-wrap: anywhere; }
+.cultivated-heading p { font-size: 12px; margin: 0 0 15px; }
+.cultivated-plant .text-button { padding-left: 0; text-align: left; }
+.unlock-progress {
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 8px;
+    margin: 18px 0 8px;
+    border: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ebe8e0;
+    accent-color: #7e9966;
+}
+.unlock-progress::-webkit-progress-bar { background: #ebe8e0; border-radius: 20px; }
+.unlock-progress::-webkit-progress-value { background: #7e9966; border-radius: 20px; }
+.unlock-progress::-moz-progress-bar { background: #7e9966; border-radius: 20px; }
+.plant-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    background: white;
+}
+.plant-stages { list-style: none; padding: 0; margin: 24px 0 0; }
+.plant-stages li { display: flex; gap: 15px; align-items: center; margin: 8px 0; font-size: 13px; }
+.plant-stages .plant-visual { width: 45px; height: 48px; }
+
+.achievement {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    width: calc(100% - 28px);
+    max-width: 452px;
+    padding: 16px;
+    border: 1px solid #cfddbf;
+    border-radius: 24px;
+    background: #f0f6e7;
+    box-shadow: 0 8px 24px #322e2c18;
+}
+#conquista-conteudo { display: flex; align-items: center; gap: 14px; }
+#conquista-conteudo > div { min-width: 0; }
+#conquista-conteudo strong { font-size: 14px; }
+#conquista-conteudo p { font-size: 13px; margin: 5px 0; overflow-wrap: anywhere; max-height: 80px; overflow-y: auto; }
+#conquista-conteudo small { font-size: 11px; }
+.achievement-actions { display: flex; justify-content: space-between; margin-top: 6px; }
+/* A visita termina mesmo para quem prefere não ver animações. */
+@media (prefers-reduced-motion: reduce) {
+    .plant-visitor { animation: none; }
+}
+/* O mesmo corpo CSS aparece no passeio, no computador, no perfil e nas visitas. */
+.bug-art {
+    display: block;
+    position: relative;
+    width: 38px;
+    height: 48px;
+    flex-shrink: 0;
+    pointer-events: none;
+    transform-origin: center;
+}
+.joaninha.bug-art { position: fixed; }
+.brand-name { display: inline-flex; align-items: center; gap: 8px; }
+.brand-bug { display: block; width: 24px; height: 30px; }
+.brand-bug .bug-art { scale: .55; transform-origin: top left; margin-top: 4px; }
+.avatar .bug-art { scale: .9; }
+.plant-visitor .bug-art { scale: .5; transform: rotate(-20deg); transform-origin: top left; }
+.garden-emblem { display: block; width: 54px; height: 64px; flex-shrink: 0; }
+.garden-emblem .planta-icone { width: 100%; height: 100%; }
+.plant-card .plant-visual { width: 86px; height: 98px; background: #f8f7f0; }
+.plant-card.locked .plant-visual { opacity: .48; filter: saturate(.35); }
+.plant-preview .plant-visual { width: 104px; height: 120px; }
+.cultivated-heading .plant-visual { width: 76px; height: 88px; }
+.lock-icon {
+    display: inline-block;
+    position: relative;
+    width: 10px;
+    height: 8px;
+    margin-right: 4px;
+    border: 1.5px solid currentColor;
+    border-radius: 2px;
+    vertical-align: -1px;
+}
+.lock-icon::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    top: -7px;
+    width: 5px;
+    height: 6px;
+    border: 1.5px solid currentColor;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+}
+@media (prefers-reduced-motion: reduce) {
+    .pomodoro-bug, .pomodoro-bug *, .computer-line { animation: none !important; }
+}
+/* Meu Jardim: céu e canteiros pertencem aos projetos; a coleção fica separada. */
+.garden-switch { display: flex; gap: 6px; padding: 5px; margin-bottom: 22px; border-radius: 19px; background: #eeeade; }
+.garden-switch button { flex: 1; font-size: 13px; }
+.garden-switch button[aria-pressed="true"] { background: #fffdf7; }
+.garden-landscape { background: #dce9cf; border-radius: 28px; overflow: hidden; }
+.garden-sky { position: relative; padding: 68px 22px 30px; background: #e2eef3; isolation: isolate; }
+.garden-sky::after { content: ""; position: absolute; bottom: -12px; left: -10%; width: 120%; height: 25px; border-radius: 50%; background: #dce9cf; }
+.garden-sky h2 { font-size: 23px; max-width: 280px; line-height: 1.25; }
+.garden-sky .eyebrow { font-size: 8px; letter-spacing: 1.3px; }
+.garden-sky p:last-child { font-size: 12px; margin: 0; max-width: 230px; }
+.garden-sun { position: absolute; top: 22px; left: 24px; width: 29px; height: 29px; border-radius: 50%; background: #efda9b; }
+.garden-cloud { position: absolute; top: 39px; right: 34px; width: 56px; height: 15px; border-radius: 20px; background: #fffdf7; }
+.garden-cloud::before, .garden-cloud::after { content: ""; position: absolute; bottom: 3px; background: #fffdf7; border-radius: 50%; width: 25px; height: 25px; left: 7px; }
+.garden-cloud::after { width: 20px; height: 20px; left: 27px; }
+.garden-beds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; padding: 22px 12px; }
+.garden-bed { display: flex; flex-direction: column; align-items: center; gap: 7px; background: #f6f3e5; border-radius: 22px; padding: 12px 10px 16px; min-width: 0; font-weight: 400; }
+.bed-illustration { display: grid; place-items: center; position: relative; width: 100%; height: 127px; }
+.bed-illustration::before { content: ""; position: absolute; bottom: 3px; width: 100%; max-width: 130px; height: 25px; border-radius: 50%; background: #ddc5a8; }
+.bed-illustration::after { content: ""; position: absolute; bottom: 18px; right: 5px; width: 9px; height: 11px; border-left: 2px solid #96ae80; border-right: 2px solid #96ae80; border-radius: 50% 50% 0 0; }
+.bed-illustration .plant-visual { width: 93px; height: 112px; background: none; }
+.bed-species { font-size: 10px; color: #666e59; }
+.garden-bed strong { font-size: 14px; overflow-wrap: anywhere; max-width: 100%; }
+.bed-stage { font-size: 10px; line-height: 1.4; font-weight: 700; }
+.bed-time { font-size: 10px; line-height: 1.5; color: var(--muted); }
+.bed-dots { display: flex; gap: 4px; }
+.bed-dots i { width: 7px; height: 7px; border-radius: 50%; background: #e1dfd2; }
+.bed-dots .grown { background: #8aa277; }
+.bed-finished { background: #e4ebd8; border-radius: 8px; font-size: 9px; padding: 5px 7px; }
+.garden-empty { grid-column: 1 / -1; text-align: center; padding: 15px 8px 20px; }
+.garden-empty .plant-visual { width: 90px; height: 110px; background: #edf2e5; margin-bottom: 15px; }
+.garden-empty p { font-size: 13px; max-width: 260px; margin: 12px auto 20px; }
+.cultivation-preview { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; padding: 18px; border-radius: 22px; background: #e7eedb; }
+.cultivation-preview .plant-visual { width: 112px; height: 135px; background: none; }
+.cultivation-preview > span:last-child { font-size: 11px; font-weight: 400; }
+.cultivation-project { overflow-wrap: anywhere; font-size: 14px; }
+.cultivation-facts { margin: 20px 0 0; }
+.cultivation-facts > div { padding: 12px 0; border-bottom: 1px solid #e8e3d8; }
+.cultivation-facts dt { color: var(--muted); font-size: 11px; margin-bottom: 5px; }
+.cultivation-facts dd { margin: 0; font-size: 14px; font-weight: 700; }
+.next-growth { border-radius: 16px; padding: 16px; background: #eeeeda; font-size: 13px; }
+.next-growth h3 { font-size: 14px; }
+.next-growth p { margin: 8px 0; }
+.next-growth small { color: var(--muted); }
+/* Uma oscilação curta ao toque, sem modificar o tempo nem o estágio. */
+.plant-touched { transform-origin: 50% 95%; animation: garden-touch .65s ease-out both; }
+@keyframes garden-touch { 0%, 100% { transform: rotate(0) translateY(0); } 25% { transform: rotate(-5deg) translateY(-2px); } 55% { transform: rotate(4deg) translateY(-1px); } 80% { transform: rotate(-2deg); } }
+@media (max-width: 350px) {
+    .garden-beds { gap: 10px 8px; padding: 18px 8px; }
+    .garden-bed { padding: 10px 7px 14px; }
+    .garden-sky { padding-left: 18px; padding-right: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .plant-touched { animation: none !important; } }
+/* Renomear fica acessível mesmo com a pasta fechada. */
+.folder-group { position: relative; margin: 20px 0; }
+.folder-group .folder { margin: 0; }
+.folder-group summary { padding-right: 102px; min-height: 44px; }
+.folder-rename { position: absolute; top: 16px; right: 16px; z-index: 1; }
