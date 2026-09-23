@@ -4,11 +4,62 @@
     --bg:#faf7ef;
     --ink:#322e2c;
     --muted:#746f69;
+    --panel:#ffffff;
+    --panel-alt:#f7f4ef;
+    --surface:#ffffff;
+    --surface-soft:#f7f4ef;
+    --surface-strong:#efeae2;
+    --card-border:rgba(50,46,44,0.08);
+    --button-soft:#eee9df;
+    --button-soft-ink:#322e2c;
+    --text-dark:#1f242a;
+    --text-main:#322e2c;
+    --text-secondary:#5f5a56;
+    --text-muted:#746f69;
+    --input-bg:#ffffff;
+    --placeholder:#8a8d97;
+    --button-primary:#322e2c;
+    --button-primary-ink:#ffffff;
+    --button-secondary:#f2efe9;
+    --button-secondary-ink:#322e2c;
     --pink:#f5ccd4;
     --yellow:#f8e5a4;
     --blue:#d6e8f7;
     --green:#dcebcf;
-    --radius:26px
+    --radius:26px;
+    --progress-empty:rgba(255,255,255,0.4);
+    --contrast-strong:#322e2c;
+    --contrast-soft:#5f5a56;
+}
+:root[data-theme="dark"] {
+    --bg:#171A1F;
+    --ink:#F5F2EA;
+    --muted:#98A2B3;
+    --panel:#23262D;
+    --panel-alt:#2B3038;
+    --surface:#23262D;
+    --surface-soft:#2B3038;
+    --surface-strong:#1D2127;
+    --card-border:rgba(255,255,255,0.12);
+    --button-soft:#2D3138;
+    --button-soft-ink:#F5F2EA;
+    --text-dark:#1F242A;
+    --text-main:#F5F2EA;
+    --text-secondary:#C6CDD8;
+    --text-muted:#98A2B3;
+    --input-bg:#23262D;
+    --placeholder:#A8AFBA;
+    --button-primary:#F5F2EA;
+    --button-primary-ink:#171A1F;
+    --button-secondary:#2B3038;
+    --button-secondary-ink:#F5F2EA;
+    --pink:#7F6D8E;
+    --yellow:#B69457;
+    --blue:#5E7895;
+    --green:#5B7B68;
+    --progress-empty:rgba(255,255,255,0.12);
+    --contrast-strong:#F5F2EA;
+    --contrast-soft:#C6CDD8;
 }
 
 * {
@@ -35,6 +86,47 @@ button {
     color:inherit;
     font-weight:700
 }
+:root[data-theme="dark"] button,
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .folder,
+:root[data-theme="dark"] .plant-card,
+:root[data-theme="dark"] .garden-bed,
+:root[data-theme="dark"] .plant-preview,
+:root[data-theme="dark"] .detail-hero,
+:root[data-theme="dark"] .list-card,
+:root[data-theme="dark"] .stat,
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .welcome,
+:root[data-theme="dark"] .preset,
+:root[data-theme="dark"] .garden-summary,
+:root[data-theme="dark"] .next-growth {
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+:root[data-theme="dark"] body {
+    background: var(--bg);
+    color: var(--text-main);
+}
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .folder,
+:root[data-theme="dark"] .stat,
+:root[data-theme="dark"] .list-card,
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .welcome,
+:root[data-theme="dark"] .preset,
+:root[data-theme="dark"] .garden-summary,
+:root[data-theme="dark"] .plant-card,
+:root[data-theme="dark"] .garden-bed,
+:root[data-theme="dark"] .plant-preview,
+:root[data-theme="dark"] .cultivation-preview,
+:root[data-theme="dark"] .next-growth,
+:root[data-theme="dark"] .detail-hero {
+    background: var(--surface);
+    border-color: var(--card-border);
+    color: var(--text-main);
+}
 button:hover {
     filter:brightness(.96)
 }
@@ -49,11 +141,85 @@ button:focus-visible,a:focus-visible {
 input,select,textarea {
     width:100%;
     min-width:0;
-    border:1px solid #dedbd4;
+    border:1px solid var(--card-border);
     border-radius:13px;
     padding:13px;
-    background:#fff;
+    background:var(--panel-alt);
     color:var(--ink)
+}
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+    background: var(--input-bg);
+    color: var(--text-main);
+    border: 1px solid var(--card-border);
+}
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder {
+    color: var(--placeholder);
+    opacity: 1;
+}
+:root[data-theme="dark"] label,
+:root[data-theme="dark"] .meta,
+:root[data-theme="dark"] .subtitle,
+:root[data-theme="dark"] .eyebrow,
+:root[data-theme="dark"] .tag,
+:root[data-theme="dark"] .footnote,
+:root[data-theme="dark"] .empty,
+:root[data-theme="dark"] .folder-count,
+:root[data-theme="dark"] .timer-status,
+:root[data-theme="dark"] .profile p,
+:root[data-theme="dark"] .task-row .done,
+:root[data-theme="dark"] .next-growth small,
+:root[data-theme="dark"] .bed-time,
+:root[data-theme="dark"] .project-card .progress-caption,
+:root[data-theme="dark"] .stat span {
+    color: var(--text-secondary);
+}
+:root[data-theme="dark"] .timer {
+    color: var(--text-main);
+    text-shadow: 0 0 0 rgba(0,0,0,0);
+}
+:root[data-theme="dark"] .presets {
+    background: #1C2025;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+:root[data-theme="dark"] .presets button {
+    background: transparent;
+    color: var(--text-secondary);
+}
+:root[data-theme="dark"] .presets .selected {
+    background: var(--pink);
+    color: var(--text-dark);
+}
+:root[data-theme="dark"] .primary {
+    background: var(--button-primary);
+    color: var(--button-primary-ink);
+}
+:root[data-theme="dark"] .secondary,
+:root[data-theme="dark"] .tema-opcao,
+:root[data-theme="dark"] .text-button {
+    background: var(--button-secondary);
+    color: var(--button-secondary-ink);
+    border: 1px solid var(--card-border);
+}
+:root[data-theme="dark"] .danger-button {
+    background: #7A3F3F;
+    color: #FFF4F4;
+}
+:root[data-theme="dark"] .delete {
+    color: #F1A4A4;
+}
+:root[data-theme="dark"] .task-row input[type="checkbox"] {
+    accent-color: #C9B1D9;
+}
+:root[data-theme="dark"] .list-card .section-heading,
+:root[data-theme="dark"] .section-heading {
+    color: var(--text-main);
+}
+:root[data-theme="dark"] .bottom-nav button[aria-current] {
+    background: var(--yellow);
+    color: var(--text-dark);
 }
 textarea {
     resize:vertical
@@ -131,11 +297,68 @@ p {
     margin-bottom:26px
 }
 .card {
-    background:#fff;
+    background:var(--panel);
+    border:1px solid var(--card-border);
     border-radius:var(--radius);
     padding:24px;
     margin:20px 0;
     box-shadow:0 4px 15px #493f2c03
+}
+.profile-header {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px
+}
+.profile-header > div {
+    flex:1
+}
+.gear-button {
+    background:#f1ebdf;
+    border-radius:12px;
+    min-width:44px;
+    min-height:44px;
+    padding:8px;
+    font-size:24px;
+    line-height:1
+}
+.configuracao-grupo {
+    margin:20px 0
+}
+.volume-label {
+    display:inline-block;
+    margin-top:8px;
+    color:var(--muted);
+    font-weight:700
+}
+.tema-grid {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:10px;
+    margin-top:10px
+}
+.tema-opcao {
+    background:#f4efe9;
+    color:var(--ink);
+    border:1px solid transparent
+}
+.tema-opcao.active {
+    background:var(--pink);
+    border-color:var(--ink)
+}
+#configuracoes-modal {
+    width:min(92vw, 420px);
+    border:0;
+    border-radius:24px;
+    padding:0;
+    background:var(--bg);
+    color:var(--ink)
+}
+#configuracoes-modal::backdrop {
+    background:rgba(26, 26, 26, .45)
+}
+#configuracoes-form {
+    padding:24px
 }
 .welcome {
     background:var(--green);
@@ -162,6 +385,22 @@ p {
 .primary {
     background:var(--ink);
     color:#fff
+}
+:root[data-theme="dark"] .primary {
+    background:#F5F2EA;
+    color:#171A1F;
+}
+:root[data-theme="dark"] .secondary {
+    background:#2D3138;
+    color:#F5F2EA;
+    border:1px solid rgba(255,255,255,0.08);
+}
+:root[data-theme="dark"] .text-button {
+    color:#F5F2EA;
+}
+:root[data-theme="dark"] .danger-button {
+    background:#5f3b3b;
+    color:#F8F3F0;
 }
 .primary span {
     margin-left:14px
@@ -198,7 +437,8 @@ p {
 }
 .stat {
     padding:16px 8px;
-    background:white;
+    background:var(--panel);
+    border:1px solid var(--card-border);
     border-radius:20px;
     text-align:center
 }
@@ -232,7 +472,26 @@ p {
     background:var(--project-color,var(--pink));
     padding:20px;
     border-radius:23px;
-    position:relative
+    position:relative;
+    border:1px solid rgba(0,0,0,0.05)
+}
+:root[data-theme="dark"] .project-card {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .project-card p,
+:root[data-theme="dark"] .project-card h3,
+:root[data-theme="dark"] .project-card .progress-caption,
+:root[data-theme="dark"] .project-card .project-plant-name,
+:root[data-theme="dark"] .project-card .bed-time,
+:root[data-theme="dark"] .project-card .bed-finished {
+    color:#1F242A;
+}
+:root[data-theme="dark"] .project-card .project-icon {
+    background:rgba(255,255,255,0.12);
+}
+:root[data-theme="dark"] .project-card .progress {
+    background:rgba(255,255,255,0.12);
 }
 .project-top {
     display:flex;
@@ -261,7 +520,7 @@ p {
 .progress {
     height:7px;
     border-radius:20px;
-    background:#ffffff95;
+    background:var(--progress-empty);
     overflow:hidden
 }
 .progress>span {
@@ -286,7 +545,8 @@ p {
 }
 .folder {
     border-radius:23px;
-    background:white;
+    background:var(--panel);
+    border:1px solid var(--card-border);
     padding:16px;
     margin:20px 0
 }
@@ -332,7 +592,7 @@ p {
     display:flex;
     gap:10px;
     align-items:center;
-    border-bottom:1px solid #f1eee7;
+    border-bottom:1px solid var(--card-border);
     padding:6px 0
 }
 .task-row label {
@@ -380,9 +640,23 @@ p {
 .list-card .section-heading {
     margin:0 0 12px
 }
-.focus-card {
+:root[data-theme="dark"] .focus-card,
+:root[data-theme="dark"] .profile,
+:root[data-theme="dark"] .garden-summary,
+:root[data-theme="dark"] .plant-preview,
+:root[data-theme="dark"] .cultivation-preview,
+:root[data-theme="dark"] .achievement,
+:root[data-theme="dark"] .stat,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .folder,
+:root[data-theme="dark"] .list-card {
+    background:var(--panel);
+    border-color:var(--card-border);
+    color:var(--ink);
+}
+:root[data-theme="dark"] .focus-card {
     text-align:center;
-    padding:23px 18px
+    padding:23px 18px;
 }
 .focus-card label {
     text-align:left
@@ -675,6 +949,13 @@ p {
     z-index:20;
     box-shadow:0 8px 24px #322e2c18
 }
+:root[data-theme="dark"] .bottom-nav {
+    background:#1E2329;
+    border:1px solid rgba(255,255,255,0.06);
+}
+:root[data-theme="dark"] .bottom-nav button {
+    color:#D9D2C5;
+}
 .bottom-nav button {
     color:#d5cfca;
     flex:1;
@@ -705,6 +986,60 @@ dialog {
     overflow-y:auto;
     color:var(--ink);
     background:var(--bg)
+}
+:root[data-theme="dark"] dialog {
+    background:#1D2127;
+    border:1px solid rgba(255,255,255,0.06);
+}
+:root[data-theme="dark"] dialog input,
+:root[data-theme="dark"] dialog select,
+:root[data-theme="dark"] dialog textarea {
+    background:#23262D;
+    color:#F5F2EA;
+}
+
+:root[data-theme="dark"] .tempo,
+:root[data-theme="dark"] .meta,
+:root[data-theme="dark"] .footnote,
+:root[data-theme="dark"] .empty,
+:root[data-theme="dark"] .folder-count,
+:root[data-theme="dark"] .project-card p,
+:root[data-theme="dark"] .project-card .project-plant-name,
+:root[data-theme="dark"] .project-card .progress-caption,
+:root[data-theme="dark"] .stat span,
+:root[data-theme="dark"] .task-row .done,
+:root[data-theme="dark"] .bed-time,
+:root[data-theme="dark"] .next-growth small,
+:root[data-theme="dark"] .subtitle,
+:root[data-theme="dark"] .eyebrow,
+:root[data-theme="dark"] #timer-status,
+:root[data-theme="dark"] .tag,
+:root[data-theme="dark"] .profile p,
+:root[data-theme="dark"] .garden-bed .bed-time {
+    color: var(--text-secondary);
+}
+:root[data-theme="dark"] .list-card .section-heading h2,
+:root[data-theme="dark"] .section-heading h2,
+:root[data-theme="dark"] .card h2,
+:root[data-theme="dark"] .list-title,
+:root[data-theme="dark"] .task-row label,
+:root[data-theme="dark"] .focus-card label,
+:root[data-theme="dark"] .focus-card select,
+:root[data-theme="dark"] .focus-card option,
+:root[data-theme="dark"] .profile-header h2,
+:root[data-theme="dark"] .detail-hero h1,
+:root[data-theme="dark"] .detail-hero p,
+:root[data-theme="dark"] .welcome h2,
+:root[data-theme="dark"] .garden-summary h2,
+:root[data-theme="dark"] .garden-bed strong,
+:root[data-theme="dark"] .garden-bed .bed-species,
+:root[data-theme="dark"] .garden-bed .bed-stage,
+:root[data-theme="dark"] .garden-bed .bed-time,
+:root[data-theme="dark"] .plant-card strong,
+:root[data-theme="dark"] .plant-card small,
+:root[data-theme="dark"] .project-card h3,
+:root[data-theme="dark"] .project-card .project-plant-name {
+    color: var(--text-main);
 }
 dialog::backdrop {
     background:#322e2c66;
@@ -867,6 +1202,40 @@ h1 {
     gap: 18px;
     background: var(--green);
 }
+:root[data-theme="dark"] .garden-summary,
+:root[data-theme="dark"] .garden-landscape,
+:root[data-theme="dark"] .garden-bed,
+:root[data-theme="dark"] .plant-preview,
+:root[data-theme="dark"] .plant-card,
+:root[data-theme="dark"] .cultivation-preview,
+:root[data-theme="dark"] .next-growth {
+    background: var(--panel-alt);
+    border-color: var(--card-border);
+    color: #1F242A;
+}
+:root[data-theme="dark"] .garden-sky {
+    background: #1E2A33;
+    color: #F5F2EA;
+}
+:root[data-theme="dark"] .garden-bed {
+    background: #2A2F34;
+}
+:root[data-theme="dark"] .garden-switch {
+    background: #23262D;
+}
+:root[data-theme="dark"] .garden-switch button[aria-pressed="true"] {
+    background: #2D3138;
+    color: #F5F2EA;
+}
+:root[data-theme="dark"] .garden-landscape .garden-sky .eyebrow {
+    color: #C8C3B8;
+}
+:root[data-theme="dark"] .garden-bed .bed-species,
+:root[data-theme="dark"] .garden-bed .bed-stage,
+:root[data-theme="dark"] .garden-bed .bed-time {
+    color: #C8C3B8;
+}
+:root[data-theme="dark"] .plant-card.locked { background: #1F2328; }
 .garden-summary > span { font-size: 42px; }
 .garden-summary h2 { font-size: 18px; }
 .garden-summary p { font-size: 12px; margin: 0; }

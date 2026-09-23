@@ -56,6 +56,14 @@ let projetoAberto = null;
 let acaoModal = null;
 let avisoTimeout;
 let celebrando = false;
+let alarmePomodoroTimer = null;
+let alarmePomodoroPreparado = false;
+const temasAplicados = {
+  rosa: { bg:'#faf7ef', ink:'#322e2c', muted:'#746f69', panel:'#ffffff', panelAlt:'#f7f4ef', surface:'#ffffff', surfaceSoft:'#f7f4ef', surfaceStrong:'#efeae2', textDark:'#1f242a', textMain:'#322e2c', textSecondary:'#5f5a56', textMuted:'#746f69', inputBg:'#ffffff', placeholder:'#8a8d97', buttonPrimary:'#322e2c', buttonPrimaryInk:'#ffffff', buttonSecondary:'#f2efe9', buttonSecondaryInk:'#322e2c', pink:'#f5ccd4', yellow:'#f8e5a4', blue:'#d6e8f7', green:'#dcebcf' },
+  azul: { bg:'#f1f7ff', ink:'#24374a', muted:'#586d86', panel:'#ffffff', panelAlt:'#edf4ff', surface:'#ffffff', surfaceSoft:'#edf4ff', surfaceStrong:'#e2edff', textDark:'#1f242a', textMain:'#24374a', textSecondary:'#4d6077', textMuted:'#586d86', inputBg:'#ffffff', placeholder:'#7787a1', buttonPrimary:'#24374a', buttonPrimaryInk:'#ffffff', buttonSecondary:'#edf4ff', buttonSecondaryInk:'#24374a', pink:'#dfeeff', yellow:'#f1e9c7', blue:'#bfdcff', green:'#dfeee3' },
+  verde: { bg:'#f1faf1', ink:'#2f4433', muted:'#5f7664', panel:'#ffffff', panelAlt:'#f4f9f2', surface:'#ffffff', surfaceSoft:'#f4f9f2', surfaceStrong:'#e8f1e3', textDark:'#1f242a', textMain:'#2f4433', textSecondary:'#516858', textMuted:'#5f7664', inputBg:'#ffffff', placeholder:'#71827b', buttonPrimary:'#2f4433', buttonPrimaryInk:'#ffffff', buttonSecondary:'#edf5ee', buttonSecondaryInk:'#2f4433', pink:'#e8f3d8', yellow:'#f5e9b4', blue:'#dfeaf9', green:'#cfead0' },
+  noturno: { bg:'#171A1F', ink:'#F5F2EA', muted:'#98A2B3', panel:'#23262D', panelAlt:'#2B3038', surface:'#23262D', surfaceSoft:'#2B3038', surfaceStrong:'#1D2127', textDark:'#1F242A', textMain:'#F5F2EA', textSecondary:'#C6CDD8', textMuted:'#98A2B3', inputBg:'#23262D', placeholder:'#A8AFBA', buttonPrimary:'#F5F2EA', buttonPrimaryInk:'#171A1F', buttonSecondary:'#2B3038', buttonSecondaryInk:'#F5F2EA', pink:'#7d6a9a', yellow:'#c5a15b', blue:'#5f7ea9', green:'#4f7f6d' }
+};
 // Estado de apresentação do Jardim; não altera os dados salvos nem os desbloqueios.
 let jardimVista = 'cultivo';
 let jardimProjetoAberto = null;
@@ -63,7 +71,7 @@ let jardimProjetoAberto = null;
 function dadosIniciais() {
   return {
     versao:2, projetos:[], pastas:[], listas:[], sessoes:[],
-    configuracoes:{minutos:25, projetoId:''}, pomodoro:null,
+    configuracoes:{minutos:25, projetoId:'', volumeAlarme:0.8, tema:'rosa'}, pomodoro:null,
     plantasDesbloqueadas:plantas.filter(p => p.desbloqueadaInicialmente).map(p => p.id),
     historicoConquistas:{tarefas:[], projetos:[]}, estatisticas:{}
   };
@@ -92,6 +100,112 @@ function avisar(mensagem) {
   $('#aviso').textContent = mensagem; $('#aviso').hidden = false;
   avisoTimeout = setTimeout(() => $('#aviso').hidden = true, 5500);
 }
+function obterVolumeAlarme() {
+  const slider = document.getElementById('volume-configuracoes');
+  const valor = Number(slider?.value ?? dados.configuracoes.volumeAlarme ?? 0.8);
+  return Number.isFinite(valor) ? Math.min(1, Math.max(0, valor)) : 0.8;
+}
+function atualizarVolumeAlarme(valor) {
+  const slider = document.getElementById('volume-configuracoes');
+  const label = document.getElementById('volume-configuracoes-label');
+  const volume = Number.isFinite(Number(valor)) ? Number(valor) : 0.8;
+  const finalVolume = Math.min(1, Math.max(0, volume));
+  dados.configuracoes.volumeAlarme = finalVolume;
+  if (slider) slider.value = String(finalVolume);
+  if (label) label.textContent = `${Math.round(finalVolume * 100)}%`;
+  const audio = document.getElementById('pomodoro-alarm');
+  if (audio) audio.volume = finalVolume;
+}
+function aplicarTema(tema) {
+  const raiz = document.documentElement;
+  raiz.dataset.theme = tema;
+  const temaSelecionado = temasAplicados[tema] || temasAplicados.rosa;
+  raiz.style.setProperty('--bg', temaSelecionado.bg);
+  raiz.style.setProperty('--ink', temaSelecionado.ink);
+  raiz.style.setProperty('--muted', temaSelecionado.muted);
+  raiz.style.setProperty('--panel', temaSelecionado.panel);
+  raiz.style.setProperty('--panel-alt', temaSelecionado.panelAlt);
+  raiz.style.setProperty('--surface', temaSelecionado.surface);
+  raiz.style.setProperty('--surface-soft', temaSelecionado.surfaceSoft);
+  raiz.style.setProperty('--surface-strong', temaSelecionado.surfaceStrong);
+  raiz.style.setProperty('--text-dark', temaSelecionado.textDark);
+  raiz.style.setProperty('--text-main', temaSelecionado.textMain);
+  raiz.style.setProperty('--text-secondary', temaSelecionado.textSecondary);
+  raiz.style.setProperty('--text-muted', temaSelecionado.textMuted);
+  raiz.style.setProperty('--input-bg', temaSelecionado.inputBg);
+  raiz.style.setProperty('--placeholder', temaSelecionado.placeholder);
+  raiz.style.setProperty('--button-primary', temaSelecionado.buttonPrimary);
+  raiz.style.setProperty('--button-primary-ink', temaSelecionado.buttonPrimaryInk);
+  raiz.style.setProperty('--button-secondary', temaSelecionado.buttonSecondary);
+  raiz.style.setProperty('--button-secondary-ink', temaSelecionado.buttonSecondaryInk);
+  raiz.style.setProperty('--pink', temaSelecionado.pink);
+  raiz.style.setProperty('--yellow', temaSelecionado.yellow);
+  raiz.style.setProperty('--blue', temaSelecionado.blue);
+  raiz.style.setProperty('--green', temaSelecionado.green);
+  document.querySelectorAll('.tema-opcao').forEach(botao => {
+    botao.classList.toggle('active', botao.dataset.tema === tema);
+  });
+}
+function prepararAlarmePomodoro() {
+  const audio = document.getElementById('pomodoro-alarm');
+  if (!audio || alarmePomodoroPreparado) return;
+  alarmePomodoroPreparado = true;
+  const volume = obterVolumeAlarme();
+  audio.volume = volume;
+  audio.muted = false;
+  audio.load();
+  try {
+    const retorno = audio.play();
+    if (retorno && typeof retorno.catch === 'function') retorno.catch(() => {});
+  } catch (erro) {
+    // O navegador pode bloquear reprodução até a primeira interação do usuário.
+  }
+  audio.pause();
+  audio.currentTime = 0;
+}
+function pararAlarmePomodoro() {
+  const audio = document.getElementById('pomodoro-alarm');
+  if (!audio) return;
+  if (alarmePomodoroTimer) { clearTimeout(alarmePomodoroTimer); alarmePomodoroTimer = null; }
+  audio.pause();
+  audio.currentTime = 0;
+}
+function tocarAlarmePomodoro() {
+  const audio = document.getElementById('pomodoro-alarm');
+  if (!audio) return;
+  try {
+    if (alarmePomodoroTimer) clearTimeout(alarmePomodoroTimer);
+    audio.volume = obterVolumeAlarme();
+    audio.muted = false;
+    audio.pause();
+    audio.currentTime = 0;
+    const retorno = audio.play();
+    if (retorno && typeof retorno.catch === 'function') {
+      retorno.catch(() => {
+        // O bloqueio de autoplay do navegador pode impedir a reprodução; o restante da sessão continua.
+      });
+    }
+    alarmePomodoroTimer = setTimeout(() => {
+      pararAlarmePomodoro();
+    }, 5000);
+  } catch (erro) {
+    // Reproducao bloqueada ou sem suporte de mídia: não interrompe o Pomodoro.
+  }
+}
+function configurarTemaAplicado() {
+  const tema = dados.configuracoes.tema || 'rosa';
+  aplicarTema(tema);
+  const configuracoes = document.getElementById('configuracoes-form');
+  if (configuracoes) {
+    configuracoes.querySelectorAll('.tema-opcao').forEach(botao => {
+      botao.classList.toggle('active', botao.dataset.tema === tema);
+    });
+  }
+  const slider = document.getElementById('volume-configuracoes');
+  if (slider) slider.value = String(dados.configuracoes.volumeAlarme ?? 0.8);
+  const label = document.getElementById('volume-configuracoes-label');
+  if (label) label.textContent = `${Math.round((dados.configuracoes.volumeAlarme ?? 0.8) * 100)}%`;
+}
 function tempoAmigavel(segundos) {
   const minutos = Math.floor(segundos / 60);
   const horas = Math.floor(minutos / 60);
@@ -104,6 +218,8 @@ function progresso(projeto) { return projeto.metaHoras > 0 ? Math.min(100, proje
 function migrarDados(salvo) {
   const estado = {...dadosIniciais(), ...salvo, versao:2};
   estado.configuracoes = {...dadosIniciais().configuracoes, ...salvo.configuracoes};
+  estado.configuracoes.volumeAlarme = Number.isFinite(Number(estado.configuracoes.volumeAlarme)) ? Math.min(1, Math.max(0, Number(estado.configuracoes.volumeAlarme))) : 0.8;
+  estado.configuracoes.tema = ['rosa','azul','verde','noturno'].includes(estado.configuracoes.tema) ? estado.configuracoes.tema : 'rosa';
   estado.plantasDesbloqueadas = [...new Set([
     ...dadosIniciais().plantasDesbloqueadas,
     ...(Array.isArray(salvo.plantasDesbloqueadas) ? salvo.plantasDesbloqueadas : [])
@@ -642,6 +758,7 @@ function finalizarPomodoro() {
     dados.sessoes.push({id:sessao.id,projetoId:projeto.id,segundos:sessao.duracao,dia:diaLocal(new Date(sessao.terminaEm || Date.now()))});
   }
   dados.pomodoro = null; celebrando = true; salvarDados(); renderizarTudo();
+  tocarAlarmePomodoro();
   avisar(`${tempoAmigavel(sessao.duracao)} dedicados a ${projeto?.nome || 'seu projeto'}! Muito bem!`);
   setTimeout(() => { celebrando = false; atualizarMascote(); },1600);
 }
@@ -665,11 +782,40 @@ function atualizarRelogio() {
   const segundos = segundosRestantes();
   $('#timer').textContent = `${String(Math.floor(segundos/60)).padStart(2,'0')}:${String(segundos%60).padStart(2,'0')}`;
 }
-$('#iniciar').addEventListener('click',iniciarPomodoro);
-$('#pausar').addEventListener('click',pausarPomodoro);
-$('#reiniciar').addEventListener('click', () => { if (dados.pomodoro && !confirm('Reiniciar? O tempo desta sessão incompleta não será somado.')) return; dados.pomodoro = null; salvarDados(); renderizarFoco(); });
+$('#iniciar').addEventListener('click', () => { prepararAlarmePomodoro(); iniciarPomodoro(); });
+$('#pausar').addEventListener('click', () => { prepararAlarmePomodoro(); pausarPomodoro(); });
+$('#reiniciar').addEventListener('click', () => {
+  pararAlarmePomodoro();
+  if (dados.pomodoro && !confirm('Reiniciar? O tempo desta sessão incompleta não será somado.')) return;
+  dados.pomodoro = null; salvarDados(); renderizarFoco();
+});
 $('#projeto-foco').addEventListener('change',evento => { dados.configuracoes.projetoId = evento.target.value; salvarDados(); });
 $('#custom-minutos').addEventListener('change',evento => { if (!evento.target.checkValidity() || !evento.target.value) { evento.target.reportValidity(); evento.target.value = dados.configuracoes.minutos; return; } dados.configuracoes.minutos = Number(evento.target.value); salvarDados(); renderizarFoco(); });
+$('#abrir-configuracoes').addEventListener('click', () => {
+  configurarTemaAplicado();
+  const slider = document.getElementById('volume-configuracoes');
+  if (slider) slider.value = String(dados.configuracoes.volumeAlarme ?? 0.8);
+  $('#configuracoes-modal').showModal();
+});
+$('#fechar-configuracoes').addEventListener('click', () => $('#configuracoes-modal').close());
+$('#configuracoes-form').addEventListener('submit', evento => {
+  evento.preventDefault();
+  const temaSelecionado = document.querySelector('.tema-opcao.active')?.dataset.tema || 'rosa';
+  dados.configuracoes.tema = temaSelecionado;
+  atualizarVolumeAlarme(document.getElementById('volume-configuracoes')?.value ?? dados.configuracoes.volumeAlarme ?? 0.8);
+  salvarDados();
+  configurarTemaAplicado();
+  $('#configuracoes-modal').close();
+  avisar('Configurações salvas.');
+});
+$('#configuracoes-form').addEventListener('click', evento => {
+  const botao = evento.target.closest('[data-tema]');
+  if (!botao) return;
+  const tema = botao.dataset.tema;
+  aplicarTema(tema);
+  document.querySelectorAll('.tema-opcao').forEach(item => item.classList.toggle('active', item === botao));
+  dados.configuracoes.tema = tema;
+});
 setInterval(() => { if (dados.pomodoro?.status === 'rodando' && segundosRestantes() <= 0) finalizarPomodoro(); else atualizarRelogio(); },250);
 // Mantém abas abertas sincronizadas para evitar crédito duplicado de uma sessão.
 window.addEventListener('storage',evento => {
@@ -750,6 +896,7 @@ $('#data-hoje').textContent = new Date().toLocaleDateString('pt-BR',{weekday:'lo
 document.querySelectorAll('[data-mascot]').forEach(local => local.innerHTML = visualJoaninha());
 $('#garden-emblem').innerHTML = desenhoPlantaSVG(plantas.find(p => p.id === 'hortela'),5);
 // Migra e salva uma vez na abertura; objetivos já atingidos também são reconhecidos.
+configurarTemaAplicado();
 salvarDados();
 renderizarTudo();
 // Atualiza mesmo se a página atravessar uma mudança de horário; ao voltar de uma
